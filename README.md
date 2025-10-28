@@ -5,13 +5,6 @@ This markdown helps Tableau users (including me) copy-paste the code from here i
 ---
 ## 1. Calculated Fields
 ### 1.1. Segment/Categorize
-- **Customer Segmentation**
-    ```sql
-    IF SUM([Sales]) >= 10000 THEN "High Value"
-    ELSEIF SUM([Sales]) >= 5000 THEN "Medium Value"
-    ELSE "Low Value"
-    END
-    ```
 - **Sign of Profit**
     ```sql
     IF SUM([Profit]) > 0
@@ -34,6 +27,13 @@ This markdown helps Tableau users (including me) copy-paste the code from here i
     THEN "Complete"
     ELSE "Pending"
     END }
+    ```
+- **Customer Value**
+    ```sql
+    IF { FIXED [Customer Name] : SUM([Sales]) } >= 10000 THEN "High Value"
+    ELSEIF { FIXED [Customer Name] : SUM([Sales]) } >= 5000 THEN "Medium Value"
+    ELSE "Low Value"
+    END
     ```
 ### 1.2. Aggregate data
 - **Order Count**
@@ -60,8 +60,15 @@ This markdown helps Tableau users (including me) copy-paste the code from here i
     ELSE 0
     END
     ```
+- **Return Ratio**
+    ```sql
+    COUNTD(IF [Returned] = "Yes"
+       THEN [Order ID]
+       END)
+    / COUNTD([Order ID])
+    ```
 ### 1.4. Statistical Highlights
-- **Sales Winner Highlight**
+- **Sales Winner**
     ```sql
     IF RANK(SUM([Sales])) = 1
     THEN SUM([Sales])
@@ -139,11 +146,13 @@ This markdown helps Tableau users (including me) copy-paste the code from here i
         - Collapse
 - Create a **Calculated Field** `Customer Top N`:
     ```sql
-    IF [Expand/Collapse]="Expand"
+    IF [Expand/Collapse] = "Expand"
     THEN IF [Customer in/out]
-    THEN [Customer Name] 
-    ELSE "Others" END
-    ELSE [Customer Name] END
+         THEN [Customer Name] 
+         ELSE "Others"
+         END
+    ELSE [Customer Name]
+    END
     ```
 - Drag [Customer Top N] to Row shelf to replace [Customer Name]
 - **Show Parameter** on the [Expand/Collapse] field
