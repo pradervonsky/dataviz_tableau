@@ -95,7 +95,38 @@ This markdown helps Tableau users (including me) copy-paste the code from here i
 ---
 
 ## 2. Parameter Usage
-### 2.1. Swap Measures
+### 2.1. Year for Delta % Change
+- Create a **Parameter** `Year`
+    - Data type: `Integer`
+    - Current value: `10`
+    - Allowable values, select `List`, then in the table below, click to add value:
+        `2022, 2023, 2024, 2025`
+- Create these calculated fields:
+    - **Sales CY**
+        ```sql
+        IF DATEPART("year", [Order Date]) = [Year]
+        THEN [Sales]
+        END
+        ```
+    - **Sales PY**
+        ```sql
+        IF DATEPART("year", [Order Date]) = ([Year])-1
+        THEN [Sales]
+        END
+        ```
+    - **Sales % YoY**
+        ```sql
+        (SUM([Sales CY]) - SUM([Sales PY]))
+        / SUM([Sales PY])
+        ```
+    - **Sales % YoY Indicators**
+        ```sql
+        IF [Sales % Chg] > 0
+        THEN "▲"
+        ELSE "▼"
+        END
+        ```
+### 2.2. Swap Measures
 - Create a **Parameter** `Measurement List`
     - Data type: `String`
     - Allowable values, select `List`, then in the table below, click to add value:
@@ -117,7 +148,7 @@ This markdown helps Tableau users (including me) copy-paste the code from here i
     END
     ```
 - Show Parameter on the [Measurement List] field
-### 2.2. Top N
+### 2.3. Top N
 - Create a **Parameter** `Top N`
     - Data type: `Integer`
     - Current value: `10`
@@ -138,7 +169,7 @@ This markdown helps Tableau users (including me) copy-paste the code from here i
     ```
 - Drag [Customer Subset Labels] and then [Customer Name] to Rows shelf
 - **Show Parameter** on the [Top N] field
-### 2.3. Top N + "Others" grouping
+### 2.4. Top N + "Others" grouping
 - Create another **Parameter** `Expand/Collapse`
     - Data type: `String`
     - Allowable values, select `List`, then in the table below, click to add value:
