@@ -21,13 +21,6 @@ This markdown helps Tableau users (including me) copy-paste the code from here i
     ELSE "Average Performer"
     END
     ```
-- **Delivery Status**
-    ```sql
-    { FIXED [Order ID] : IF MAX([Ship Date]) <= MAX([Max Order Date])
-    THEN "Complete"
-    ELSE "Pending"
-    END }
-    ```
 - **Customer Value**
     ```sql
     IF { FIXED [Customer Name] : SUM([Sales]) } >= 10000 THEN "High Value"
