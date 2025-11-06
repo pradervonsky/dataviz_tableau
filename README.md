@@ -1,9 +1,8 @@
 # Tableau syntax & stuff
 This markdown helps Tableau users (including me) copy-paste the code from here into their respective calculated fields to create different graphs.
 
-Most of the syntax in here was taken from [help.tableau.com](https://help.tableau.com/current/pro/desktop/en-us/calculations_calculatedfields.htm) using [Superstore Sales]([https://public.tableau.com/app/sample-data/sample_-_superstore.xls) dataset.
+> Most of the syntax in here was taken from [help.tableau.com](https://help.tableau.com/current/pro/desktop/en-us/calculations_calculatedfields.htm) using [Superstore Sales]([https://public.tableau.com/app/learn/sample-data/) dataset.
 
----
 ## 1. Calculated Fields
 ### 1.1. Segment/Categorize
 - **Sign of Profit**
